@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Safe Update</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="css/normalize.css" rel="stylesheet" media="screen">
+  <link href="css/main.css" rel="stylesheet" media="screen">
+  
+  <script src="js/libs/jquery-1-9-1.min.js"></script>
+  <script src="js/main.js"></script>
+</head>
+<body>
+<h2>Safe update</h2>
+<p>
+	This page will let you install an update on your Doodle3D WiFi box <b>without</b> preserving any personal sketches or settings.<br/>
+	The box needs to be connected directly to your computer using an ethernet cable.
+</p>
+<form>
+	<label for="ssid">WiFi Network:</label><input type="text" name="ssid" id="ssid"><input type="button" name="list" value="List" class="button" id="listNetworks"/>
+	<select id="network" name=""></select><input type="button" name="refresh" value="Refresh" class="button" id="refreshNetworks"/><br>
+	<label for="phrase" id="phraseLabel">Password:</label><input type="password" name="phrase" id="phrase"><br>
+	<input type="button" value="Update" class="button" id="btnUpdate"/>
+	<span id="statusText"></span><br/>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+body {
+	padding: 8px 10px;
+}
+form label {
+  min-width: 150px;
+  display: block;
+  float: left;
+  margin: 1px 0 0 0;
+	clear: left;
+}
+form div {
+	float: left;
+}
+form input[type="text"], form input[type="number"], form input[type="password"] {
+  border: 1px solid rgb(144, 192, 255);
+  margin-right: 5px;
+  -webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+form input[type="text"].small, form input[type="number"].small, form input[type="password"].small {
+  width: 50px;
+}
+form input[type="text"].large, form input[type="number"].large, form input[type="password"].large {
+  width: 250px;
+}
+form input[type="radio"] {
+  margin: 4px 4px 0 0;
+}
+form textarea {
+  border: 1px solid rgb(144, 192, 255);
+  -webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+form small {
+	margin: 3px 0 0 0;
+	display: block;
+	clear: left;
+}
+form .button {
+	display: inline-block;
+}
+
+#ssid,
+#listNetworks,
+#phrase,
+#phraseLabel {
+	display: none;
+}
+
+.customNetwork #phrase,
+.customNetwork #phraseLabel {
+	display: block;
+}
+.customNetwork #ssid,
+.customNetwork #listNetworks{
+	display: inline-block;
+}
+.customNetwork #network,
+.customNetwork #refreshNetworks {
+	display: none;
+}
