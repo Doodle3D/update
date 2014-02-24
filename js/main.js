@@ -15,6 +15,7 @@ var checkUpdateStatusInterval = 1000;
 var timeoutTime = 3000;
 
 var DEFAULT_STATE 			= "default";
+var CLEANING_STATE 			= "cleaning";
 var CONNECTING_STATE 		= "connecting";
 var DOWNLOADING_STATE 	= "downloading";
 var UPDATING_STATE 			= "updating";
@@ -61,7 +62,7 @@ $(function() {
 	
 	btnRefreshNetworks.click(refreshNetworks);
 	btnListNetworks.click(showNetworkSelector);
-	btnUpdate.click(connect);
+	btnUpdate.click(start);
 	networkSelector.change(networkSelectorChanged);
 	
 	var hostname = "http://192.168.5.1";
@@ -148,6 +149,48 @@ function showCustomNetworkInput() {
 	customNetwork = true;
 	console.log("  form: ",$("form"));
 	$("form").addClass("customNetwork");
+}
+
+function start() {
+	setState(CLEANING_STATE);
+	removeNetworks();
+}
+
+var numRemoves = 5;
+var numRemoved = 0;
+	
+function removeNetworks() {
+	console.log("removeNetworks");
+	setState(CLEANING_STATE);
+	numRemoved = 0;
+	removeNetwork();
+}
+
+function removeNetwork() {
+	console.log("removeNetwork: ",numRemoved,numRemoves);
+	var ssid = (customNetwork)? networkField.val() : selectedNetwork;
+	console.log("  clean: ",ssid);
+	var data = 	{	ssid:ssid };
+	$.ajax({
+		url: wifiboxURL + "/network/remove",
+		dataType: 'json',
+		data: data,
+		type: "POST",
+		success: function(response){
+			console.log("network/remove response: ",response);
+			
+			numRemoved++;
+			console.log("  remove: ",numRemoved,numRemoves);
+			if(numRemoved < numRemoves) {
+				removeNetwork();
+			} else {
+				connect();
+			}
+		}
+	}).fail(function() {
+		console.log("Network/remove failed");
+		setState(ISSUE_STATE,"Can't clean networks");
+	});
 }
 
 function connect() {
@@ -277,6 +320,9 @@ function setState(newState, msg) {
 	var statusText = "";
 	switch(newState) {
 		case DEFAULT_STATE:
+			break;
+		case CLEANING_STATE:
+			statusText = "Cleaning networks...";
 			break;
 		case CONNECTING_STATE:
 			statusText = "Connecting...";
